@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lstyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Login</title>
+</head>
+<body>
+    <!-- create a form -->
+    <div class="container">
+        <div class="card">
+          <h2>Login</h2>
+          
+              <form action ="#">
+                <div class="form-group">
+                  <label for="email">Email-id</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter your Email-id">
+
+                  <form action ="#">
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+
+                      <div class="text-center">
+                        <button type="button" onclick="saveData()" class="btn btn-primary" id="save_btn">Login</button>
+            </div>
+            </div>
+            </form>
+        </div>
+    </form>
+    
+</body>
+<script>
+    function saveData(){
+    let email, password;
+    email=document.getElementById("email").value;
+    password=document.getElementById("password").value;
+    console.log(email+password);
+
+    // localStorage.setItem("email",email);
+    // localStorage.setItem("password",password);
+
+    let user_record=new Array();
+    user_record=JSON.parse(localStorage.getItem("users"))?JSON.parse(localStorage.getItem("users")):[]
+    if(user_record.some((v)=>{
+        return v.email===email && v.password==password;
+    })){
+        alert("Login Successfull");
+        let curr_user=user_record.filter((v)=>{
+            return v.email==email && v.password==password
+        })[0]
+
+        localStorage.setItem("name", curr_user.name);
+        localStorage.setItem("email", curr_user.email);
+        window.location.href="profile.html";
+    }
+    else{
+       alert("Login Fail!");
+    }   
+}
+
+</script>
+</html>
